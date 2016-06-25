@@ -8,16 +8,18 @@
                 $scope.classifieds = classifieds.data;
             });
 
-            $scope.openSidebar = function() {
+            $scope.openSidebar = function () {
                 $mdSidenav('left').open();
             };
 
-            $scope.closeSidebar = function() {
+            $scope.closeSidebar = function () {
                 $mdSidenav('left').close();
             };
 
-            $scope.saveClassified = function(classified) {
-                $scope.classifieds.push(classified);
+            $scope.saveClassified = function (classified) {
+                if (classified) {
+                    $scope.classifieds.push(classified);
+                }
             }
         });
 })();
