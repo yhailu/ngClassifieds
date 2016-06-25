@@ -2,7 +2,7 @@
     "use strict";
 
     angular.module("ngClassifieds")
-        .controller("classifieds.Ctrl", function ($scope, $http, classifiedsFactory, $mdSidenav) {
+        .controller("classifieds.Ctrl", function ($scope, $http, classifiedsFactory, $mdSidenav, $mdToast) {
 
             classifiedsFactory.getClassifieds().then(function (classifieds) {
                 $scope.classifieds = classifieds.data;
@@ -28,6 +28,7 @@
                     $scope.classifieds.push(classified);
                     $scope.classified = {};
                     $scope.closeSidebar();
+                    $mdToast.show($mdToast.simple().content("Classified Saved!").position("top, right").hideDelay(3000))
                 }
             }
         });
