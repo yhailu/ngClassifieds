@@ -5,11 +5,8 @@
     <link rel="stylesheet" href="node_modules/angular-material/angular-material.css">
     <link href="node_modules/mdi/css/materialdesignicons.min.css" media="all" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="style.css" type="text/css">
-
-
 </head>
 <body ng-app="ngClassifieds" ng-controller="classifieds.Ctrl">
-
 <md-toolbar>
     <div class="md-toolbar-tools"><p><strong>ngClassifieds</strong></p>
         <md-button ng-click="openSidebar()">
@@ -60,7 +57,6 @@
 <md-content class="md-padding" layout="row" layout-wrap>
     <md-card ng-repeat="classified in classifieds" flex="30">
         <img ng-src="{{ classified.image}}">
-        <md-card-content>
             <div class="classified-info" ng-show="!showContact">
                 <h2 class="md-title">{{ classified.title}}</h2>
                 <h2>{{classified.posted | date:'longDate'}}</h2>
@@ -112,7 +108,7 @@
                     <md-button class="md-warn">Delete</md-button>
                 </div>
             </div>
-        </md-card-content>
+
     </md-card>
 </md-content>
 
