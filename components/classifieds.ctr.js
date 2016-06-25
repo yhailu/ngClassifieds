@@ -8,6 +8,12 @@
                 $scope.classifieds = classifieds.data;
             });
 
+            var contact = {
+                name: "Will",
+                phone: "07738392938",
+                email: "will@will.com"
+            };
+
             $scope.openSidebar = function () {
                 $mdSidenav('left').open();
             };
@@ -18,6 +24,7 @@
 
             $scope.saveClassified = function (classified) {
                 if (classified) {
+                    classified.contact = contact;
                     $scope.classifieds.push(classified);
                     $scope.classified = {};
                     $scope.closeSidebar();
