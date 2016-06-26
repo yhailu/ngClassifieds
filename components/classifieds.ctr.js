@@ -30,6 +30,11 @@
                     $scope.closeSidebar();
                     $mdToast.show($mdToast.simple().content("Classified Saved!").position("top, right").hideDelay(3000))
                 }
-            }
+            };
+
+            $scope.editClassified = function (classified) {
+                $scope.editing = true;
+                $scope.openSidebar();
+            };
         });
 })();
