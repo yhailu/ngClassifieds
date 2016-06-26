@@ -6,6 +6,7 @@
 
             classifiedsFactory.getClassifieds().then(function (classifieds) {
                 $scope.classifieds = classifieds.data;
+                $scope.categories = getCategories($scope.classifieds);
             });
 
             var contact = {
@@ -13,7 +14,7 @@
                 phone: "07738392938",
                 email: "will@will.com"
             };
-
+            
             $scope.openSidebar = function () {
                 $mdSidenav('left').open();
             };
@@ -60,6 +61,18 @@
 
             function showToast(message) {
                 $mdToast.show($mdToast.simple().content(message).position("top, right").hideDelay(3000))
+            }
+
+            function getCategories(classifieds) {
+                var categories = [];
+
+                angular.forEach(classifieds, function(item){
+                   angular.forEach(item.categories, function(category) {
+                       categories.push(category);
+                    });
+                });
+
+                return _.uniq(categories);
             }
 
         });
