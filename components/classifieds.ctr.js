@@ -4,9 +4,21 @@
     angular.module("ngClassifieds")
         .controller("classifieds.Ctrl", function ($scope, $http, classifiedsFactory, $mdSidenav, $mdToast, $mdDialog) {
 
+            var vm = this;
+            vm.categories;
+            vm.classified;
+            vm.classifieds;
+            vm.closeSidebar = closeSidebar;
+            vm.deleteClassified = deleteClassified;
+            vm.editing;
+            vm.editClassified = editClassified;
+            vm.openSidebar = openSidebar;
+            vm.saveClassified = saveClassified;
+            vm.saveEdit = saveEdit;
+
             classifiedsFactory.getClassifieds().then(function (classifieds) {
-                $scope.classifieds = classifieds.data;
-                $scope.categories = getCategories($scope.classifieds);
+                vm.classifieds = classifieds.data;
+                vm.categories = getCategories(vm.classifieds);
             });
 
             var contact = {
@@ -14,50 +26,50 @@
                 phone: "07738392938",
                 email: "will@will.com"
             };
-            
-            $scope.openSidebar = function () {
+
+            function openSidebar() {
                 $mdSidenav('left').open();
-            };
+            }
 
-            $scope.closeSidebar = function () {
+            function closeSidebar() {
                 $mdSidenav('left').close();
-            };
+            }
 
-            $scope.saveClassified = function (classified) {
+            function saveClassified(classified) {
                 if (classified) {
                     classified.contact = contact;
-                    $scope.classifieds.push(classified);
-                    $scope.classified = {};
-                    $scope.closeSidebar();
+                    vm.classifieds.push(classified);
+                    vm.classified = {};
+                    closeSidebar();
                     showToast("Classified saved!");
                 }
-            };
+            }
 
-            $scope.editClassified = function (classified) {
-                $scope.editing = true;
-                $scope.openSidebar();
-                $scope.classified = classified;
-            };
+            function editClassified (classified) {
+                vm.editing = true;
+                openSidebar();
+                vm.classified = classified;
+            }
 
-            $scope.saveEdit = function () {
-                $scope.editing = false;
-                $scope.classified = {};
-                $scope.closeSidebar("Edit saved!");
-            };
+            function saveEdit() {
+                vm.editing = false;
+                vm.classified = {};
+                closeSidebar("Edit saved!");
+            }
 
-            $scope.deleteClassified = function (classified, event) {
+            function deleteClassified(classified, event) {
                 var confirm = $mdDialog.confirm()
                     .title('Are you sure you want to delete ' + classified.title + '?')
                     .ok('Yes')
                     .cancel('No')
                     .targetEvent(event);
-                $mdDialog.show(confirm).then(function() {
-                    var index = $scope.classifieds.indexOf(classified);
-                    $scope.classifieds.splice(index, 1);
-                }, function() {
+                $mdDialog.show(confirm).then(function () {
+                    var index = vm.classifieds.indexOf(classified);
+                    vm.classifieds.splice(index, 1);
+                }, function () {
 
                 });
-            };
+            }
 
             function showToast(message) {
                 $mdToast.show($mdToast.simple().content(message).position("top, right").hideDelay(3000))
@@ -66,9 +78,9 @@
             function getCategories(classifieds) {
                 var categories = [];
 
-                angular.forEach(classifieds, function(item){
-                   angular.forEach(item.categories, function(category) {
-                       categories.push(category);
+                angular.forEach(classifieds, function (item) {
+                    angular.forEach(item.categories, function (category) {
+                        categories.push(category);
                     });
                 });
 
