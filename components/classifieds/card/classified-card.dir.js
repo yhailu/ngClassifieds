@@ -5,13 +5,15 @@
         return {
             templateUrl: "components/classifieds/card/classified-card.tpl.html",
             scope: {
-                classifieds: "=classifieds"
+                classifieds: "=classifieds",
+                classifiedsFilter: "=classifiedsFilter",
+                category: "=category"
             },
             controller: classifiedCardController,
             controllerAs: "vm"
         };
 
-        function classifiedCardController() {
+        function classifiedCardController($state, $scope, $mdDialog) {
 
             var vm = this;
             vm.editClassified = editClassified;
