@@ -9,9 +9,9 @@
             vm.classified;
             vm.classifieds;
             vm.closeSidebar = closeSidebar;
-            vm.deleteClassified = deleteClassified;
+           // vm.deleteClassified = deleteClassified;
             vm.editing;
-            vm.editClassified = editClassified;
+          //  vm.editClassified = editClassified;
             vm.openSidebar = openSidebar;
             vm.saveClassified = saveClassified;
             vm.classifieds = classifiedsFactory.ref;
@@ -59,11 +59,7 @@
                 }
             }
 
-            function editClassified(classified) {
-                $state.go('classifieds.edit', {
-                    id: classified.$id
-                });
-            }
+           
 
             function saveEdit() {
                 vm.editing = false;
@@ -71,19 +67,6 @@
                 closeSidebar("Edit saved!");
             }
 
-            function deleteClassified(classified, event) {
-                var confirm = $mdDialog.confirm()
-                    .title('Are you sure you want to delete ' + classified.title + '?')
-                    .ok('Yes')
-                    .cancel('No')
-                    .targetEvent(event);
-                $mdDialog.show(confirm).then(function () {
-                    vm.classifieds.$remove(classified);
-                    showToast('Classified deleted!');
-                }, function () {
-
-                });
-            }
 
             function showToast(message) {
                 $mdToast.show($mdToast.simple().content(message).position("top, right").hideDelay(3000))
